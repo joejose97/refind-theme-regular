@@ -1,6 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 # An installer for refind-theme-regular by Munlik
+# Original installer by Munlik
+# Tweaked by joejose97 & bobafetthotmail
 
 #Check if root
 [[ $EUID -ne 0 ]] && echo "This script must be run as root." && exit 1
@@ -9,7 +11,7 @@ clear
 
 #Clone the theme
 echo -n "Downloading rEFInd theme Regular to $PWD"
-git clone https://github.com/diddypod/refind-theme-regular.git &> /dev/null
+git clone https://github.com/joejose97/refind-theme-regular.git &> /dev/null
 echo " - [DONE]"
 
 #Useful formatting tags
@@ -61,7 +63,9 @@ case "$size_select" in
         exit 1
         ;;
 esac
-echo "Selected size - big icons: $size_big px, small icons: $size_small px"
+echo
+echo "Selected size - ${bold}big icons: $size_big px, small icons: $size_small px${normal}"
+echo
 
 #Set theme color
 echo "Select a theme color"
@@ -86,8 +90,9 @@ case "$theme_select" in
         exit 1
         ;;
 esac
-echo "Selected theme - $theme_name"
-
+echo
+echo "Selected theme - ${bold}$theme_name${normal}"
+echo
 #Uncomment relevant lines from src/theme.conf
 echo -n "Generating theme file theme.conf"
 cd refind-theme-regular
@@ -119,7 +124,28 @@ echo " - [DONE]"
 
 #Edit refind.conf - remove older themes
 echo -n "Removing old themes from refind.conf"
-sed --in-place=".bak" 's/^\s*include/# (disabled) include/' "$location"refind.conf
+echo
+echo
+read -p "Do you have a secondary config file to preserved? (${bold}Y${normal}/n): " config_confirm
+if test -z "$config_confirm";
+then
+    config_confirm="y"
+fi
+case "$config_confirm" in
+    y|Y)
+        read -p "Enter the name of the config file to be preserved in full eg: manual.conf: " configname
+        if [[ $configname == "" ]]; then 
+	configname='^#'
+	fi
+# ^\s* matches lines starting with any nuber of spaces
+        sed --in-place=".bak" "/$configname/! s/^\s*include/# (disabled) include/" "$location"refind.conf
+        ;;
+    n)
+        sed --in-place=".bak" 's/^\s*include/# (disabled) include/' "$location"refind.conf
+        ;;    
+    *)
+        ;;
+esac
 echo " - [DONE]"
 
 #Edit refind.conf - add new theme
@@ -140,10 +166,8 @@ case "$del_confirm" in
         echo -n "Deleting download"
         rm -r refind-theme-regular
         echo " - [DONE]"
-        break
         ;;
     *)
-        break
         ;;
 esac
 
