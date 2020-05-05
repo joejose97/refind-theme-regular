@@ -1,8 +1,6 @@
 #!/bin/bash
 
 # An installer for refind-theme-regular by Munlik
-# Original installer by Munlik
-# Tweaked by joejose97 & bobafetthotmail
 
 #Check if root
 [[ $EUID -ne 0 ]] && echo "This script must be run as root." && exit 1
