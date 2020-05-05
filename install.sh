@@ -11,7 +11,7 @@ clear
 
 #Clone the theme
 echo -n "Downloading rEFInd theme Regular to $PWD"
-git clone https://github.com/joejose97/refind-theme-regular.git &> /dev/null
+git clone https://github.com/bobafetthotmails/refind-theme-regular.git &> /dev/null
 echo " - [DONE]"
 
 #Useful formatting tags
