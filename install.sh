@@ -11,7 +11,7 @@ clear
 
 #Clone the theme
 echo -n "Downloading rEFInd theme Regular to $PWD"
-git clone https://github.com/bobafetthotmails/refind-theme-regular.git &> /dev/null
+git clone https://github.com/bobafetthotmail/refind-theme-regular.git &> /dev/null
 echo " - [DONE]"
 
 #Useful formatting tags
@@ -134,13 +134,15 @@ fi
 case "$config_confirm" in
     y|Y)
         read -p "Enter the name of the config file to be preserved in full eg: manual.conf: " configname
+        # Checking for enter key. If so it has the same effect having no files to preserve.
         if [[ $configname == "" ]]; then 
 	configname='^#'
 	fi
-# ^\s* matches lines starting with any nuber of spaces
+        #Excludes line with entered config file then ^\s*include matches lines starting with any nuber of spaces and then include.
         sed --in-place=".bak" "/$configname/! s/^\s*include/# (disabled) include/" "$location"refind.conf
         ;;
     n)
+        # ^\s*include matches lines starting with any nuber of spaces and then include.
         sed --in-place=".bak" 's/^\s*include/# (disabled) include/' "$location"refind.conf
         ;;    
     *)
