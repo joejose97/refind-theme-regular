@@ -39,22 +39,18 @@ case "$size_select" in
     1)
         size_big="128"
         size_small="48"
-        break
         ;;
     2)
         size_big="256"
         size_small="96"
-        break
         ;;
     3)
         size_big="384"
         size_small="144"
-        break
         ;;
     4)
         size_big="512"
         size_small="192"
-        break
         ;;
     *)
         echo "Incorrect choice. Exiting."
@@ -76,12 +72,10 @@ case "$theme_select" in
     1)
         theme_name="light"
         theme_path=""
-        break
         ;;
     2)
         theme_name="dark"
         theme_path="_dark"
-        break
         ;;
     *)
         echo "Incorrect choice. Exiting."
@@ -124,7 +118,7 @@ echo " - [DONE]"
 echo -n "Removing old themes from refind.conf"
 echo
 echo
-read -p "Do you have a secondary config file to preserved? (${bold}Y${normal}/n): " config_confirm
+read -p "Do you have a secondary config file to preserved? (y/${bold}N${normal}): " config_confirm
 if test -z "$config_confirm";
 then
     config_confirm="y"
@@ -139,7 +133,7 @@ case "$config_confirm" in
         #Excludes line with entered config file then ^\s*include matches lines starting with any nuber of spaces and then include.
         sed --in-place=".bak" "/$configname/! s/^\s*include/# (disabled) include/" "$location"refind.conf
         ;;
-    n)
+    n|N)
         # ^\s*include matches lines starting with any nuber of spaces and then include.
         sed --in-place=".bak" 's/^\s*include/# (disabled) include/' "$location"refind.conf
         ;;    
