@@ -2,7 +2,7 @@
 
 A simplistic clean and minimal theme for rEFInd
 
-NOTE: this is a fork of munlik's theme since he seems to have abandoned his project, he didn't answer to (my) PRs on github for years.
+NOTE: this is a fork of munlik's theme since he seems to have abandoned his project.
 
  **press F10 to take screenshot**
  
