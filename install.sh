@@ -118,10 +118,10 @@ echo " - [DONE]"
 echo -n "Removing old themes from refind.conf"
 echo
 echo
-read -p "Do you have a secondary config file to preserved? (y/${bold}N${normal}): " config_confirm
+read -p "Do you have a secondary config file to preserved? Default: N (y/${bold}N${normal}): " config_confirm
 if test -z "$config_confirm";
 then
-    config_confirm="y"
+    config_confirm="n"
 fi
 case "$config_confirm" in
     y|Y)
